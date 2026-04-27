@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    MAVEN è uno strumento che gestisce automaticamente il progetto Java:
+    - Scarica le librerie (dipendenze) da internet
+    - Compila il codice
+    - Esegue i test
+    - Impacchetta il progetto
+
+    Questo file si chiama pom.xml (Project Object Model) ed è il
+    "cuore" di Maven: qui diciamo di quali librerie abbiamo bisogno
+    e Maven le scarica da solo come file JAR.
+
+    FILE JAR (Java ARchive):
+    - È come un file ZIP che contiene codice Java già compilato
+    - Le librerie esterne vengono distribuite come JAR
+    - Maven li scarica automaticamente nella cartella .m2 del tuo PC
+    - Tu non li vedi mai direttamente, Maven li gestisce da solo!
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Versione del modello POM, sempre 4.0.0 -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Identità del progetto -->
+    <!-- groupId: come il "cognome" del progetto, di solito il dominio al contrario -->
+    <groupId>org.example</groupId>
+    <!-- artifactId: il "nome" del progetto -->
+    <artifactId>MavenDemo2</artifactId>
+    <!-- SNAPSHOT significa che il progetto è ancora in sviluppo -->
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- Impostazioni generali del progetto -->
+    <properties>
+        <!-- Versione Java usata per scrivere il codice -->
+        <maven.compiler.source>26</maven.compiler.source>
+        <!-- Versione Java su cui girerà il programma -->
+        <maven.compiler.target>26</maven.compiler.target>
+        <!-- Codifica caratteri del progetto -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!--
+        DIPENDENZE: le librerie esterne di cui ha bisogno il progetto.
+        Maven scarica automaticamente i file JAR di queste librerie
+        da internet (Maven Central Repository) e li aggiunge al progetto.
+        Senza Maven dovresti scaricare ogni JAR a mano!
+    -->
+    <dependencies>
+
+        <!-- ===================== DATABASE ===================== -->
+
+        <!--
+            MySQL Connector/J:
+            È il "ponte" tra Java e il database MySQL.
+            Senza questo JAR, Java non saprebbe come parlare con MySQL.
+            Maven scarica automaticamente il file mysql-connector-j-9.2.0.jar
+        -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.2.0</version>
+        </dependency>
+
+        <!--
+            HIBERNATE Core:
+            È un ORM (Object Relational Mapping).
+            Traduzione: invece di scrivere SQL a mano, usi oggetti Java normali
+            e Hibernate scrive il SQL da solo!
+
+            SENZA Hibernate:
+            String sql = "INSERT INTO utenti (nome) VALUES (?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "Mario");
+            ps.executeUpdate();
+
+            CON Hibernate:
+            Utente u = new Utente("Mario");
+            session.save(u); // Hibernate fa tutto da solo!
+
+            Maven scarica automaticamente hibernate-core-6.6.4.Final.jar
+            e tutte le sue dipendenze interne!
+        -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.4.Final</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
